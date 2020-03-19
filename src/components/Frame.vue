@@ -1,9 +1,10 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire">      
     <v-navigation-drawer
       v-model="drawer"
       app
       clipped
+      dark
     >
       <v-list dense>
         <v-list-item link>
@@ -14,6 +15,7 @@
             <v-list-item-title>Floors</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider class="mx-4" :inset="inset" horizontal></v-divider>
         <v-list-item link>
           <v-list-item-action>
             <v-icon>mdi-home-account</v-icon>
@@ -27,9 +29,18 @@
             <v-icon>mdi-account-multiple</v-icon>
           </v-list-item-action>
           <v-list-item-content>
+            <v-list-item-title>Teams</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
             <v-list-item-title>People</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-divider class="mx-4" :inset="inset" horizontal></v-divider>
         <v-list-item link>
           <v-list-item-action>
             <v-icon>mdi-cog</v-icon>
@@ -44,10 +55,12 @@
     <v-app-bar
       app
       clipped-left
+      color="#7fbe41"
+      dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <v-toolbar-title>CHG Facilities</v-toolbar-title>
+      <img width="70em" src="https://intranet.mychg.com/Assets/Uploaded-Photos/4b8973cc-8abd-477e-b6b7-36dcfc07464a.png"/><v-toolbar-title>Facilities</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -56,70 +69,35 @@
         :items="items"
         :loading="isLoading"
         :search-input.sync="search"
-        color="white"
         hide-details
         hide-selected
         item-text="name"
         item-value="value"
         prepend-icon="mdi-magnify"
-        label="Search for a rooms, cubes, or people ..."
-        solo
+        label="Search for a rooms, teams, cubes, or people ..."
         rounded
       >        
       </v-autocomplete>
     </v-app-bar>
 
+    <v-img style="position: absolute; width: 100%; height: 100%" src="@/assets/chg-headquarters-b.jpg"></v-img>
     <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="shrink">
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  large
-                  href="https://codepen.io/johnjleider/pen/bXNzZL"
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-codepen</v-icon>
-                </v-btn>
-              </template>
-              <span>Codepen</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
-      </v-container>
+      <Floor/>
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2019</span>
+      <span>&copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+  import Floor from './Floor';
+
   export default {
+    components: {
+      Floor,
+    },
     props: {
       source: String,
     },
@@ -131,7 +109,7 @@
       search: null,
     }),
     created () {
-      this.$vuetify.theme.dark = true
+      this.$vuetify.theme.false = false
     },
     computed: {
       fields () {

@@ -74,7 +74,7 @@
     </v-app-bar>
 
     <v-content style="background: url(chg-headquarters-b.jpg) no-repeat center center fixed; background-size: cover">
-      <Floor />
+      <Floor floor="S5" />
     </v-content>
 
     <v-footer app>
@@ -126,6 +126,11 @@ export default {
     }
   },
   watch: {
+    // TODO: Actually get search working
+    // TODO: We prolly need to pull all data in a single initial call: all cubes, all rooms, all floors.
+    //       There wouldn't be too much data and it simplifies things. We could build a single client-side structure
+    //       and then use that to render the page as well as search against.
+    // TODO: If a search hit finds a person or room or whatever, clicking on the hit should redirect the page to that floor and display that room/cube.
     /*
       search (val) {
         // Items have already been loaded

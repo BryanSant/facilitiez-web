@@ -1,11 +1,6 @@
 <template>
-  <v-app id="inspire">      
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-      dark
-    >
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app clipped dark>
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -15,7 +10,7 @@
             <v-list-item-title>Floors</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider class="mx-4" :inset="inset" horizontal></v-divider>
+        <v-divider class="mx-4" horizontal></v-divider>
         <v-list-item link>
           <v-list-item-action>
             <v-icon>mdi-home-account</v-icon>
@@ -40,7 +35,7 @@
             <v-list-item-title>People</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider class="mx-4" :inset="inset" horizontal></v-divider>
+        <v-divider class="mx-4" horizontal></v-divider>
         <v-list-item link>
           <v-list-item-action>
             <v-icon>mdi-cog</v-icon>
@@ -52,15 +47,13 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      clipped-left
-      color="#7fbe41"
-      dark
-    >
+    <v-app-bar app clipped-left color="#7fbe41" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <img width="70em" src="https://intranet.mychg.com/Assets/Uploaded-Photos/4b8973cc-8abd-477e-b6b7-36dcfc07464a.png"/><v-toolbar-title>Facilities</v-toolbar-title>
+      <img
+        width="70em"
+        src="https://intranet.mychg.com/Assets/Uploaded-Photos/4b8973cc-8abd-477e-b6b7-36dcfc07464a.png"
+      /><v-toolbar-title>Facilities</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -76,13 +69,12 @@
         prepend-icon="mdi-magnify"
         label="Search for a rooms, teams, cubes, or people ..."
         rounded
-      >        
+      >
       </v-autocomplete>
     </v-app-bar>
 
-    <v-img style="position: absolute; width: 100%; height: 100%" src="@/assets/chg-headquarters-b.jpg"></v-img>
-    <v-content>
-      <Floor/>
+    <v-content style="background: url(chg-headquarters-b.jpg) no-repeat center center fixed; background-size: cover">
+      <Floor />
     </v-content>
 
     <v-footer app>
@@ -92,48 +84,49 @@
 </template>
 
 <script>
-  import Floor from './Floor';
+import Floor from "./Floor";
 
-  export default {
-    components: {
-      Floor,
-    },
-    props: {
-      source: String,
-    },
-    data: () => ({
-      drawer: null,
-      entries: [],
-      isLoading: false,
-      model: null,
-      search: null,
-    }),
-    created () {
-      this.$vuetify.theme.false = false
-    },
-    computed: {
-      fields () {
-        if (!this.model) return []
+export default {
+  components: {
+    Floor
+  },
+  props: {
+    source: String
+  },
+  data: () => ({
+    drawer: null,
+    entries: [],
+    isLoading: false,
+    model: null,
+    search: null
+  }),
+  created() {
+    this.$vuetify.theme.false = false;
+  },
+  computed: {
+    fields() {
+      if (!this.model) return [];
 
-        return Object.keys(this.model).map(key => {
-          return {
-            key,
-            value: this.model[key] || 'n/a',
-          }
-        })
-      },
-      items () {
-        return this.entries.map(entry => {
-          const Description = entry.Description.length > this.descriptionLimit
-            ? entry.Description.slice(0, this.descriptionLimit) + '...'
-            : entry.Description
-
-          return Object.assign({}, entry, { Description })
-        })
-      },
+      return Object.keys(this.model).map(key => {
+        return {
+          key,
+          value: this.model[key] || "n/a"
+        };
+      });
     },
-    watch: {
-      /*
+    items() {
+      return this.entries.map(entry => {
+        const Description =
+          entry.Description.length > this.descriptionLimit
+            ? entry.Description.slice(0, this.descriptionLimit) + "..."
+            : entry.Description;
+
+        return Object.assign({}, entry, { Description });
+      });
+    }
+  },
+  watch: {
+    /*
       search (val) {
         // Items have already been loaded
         if (this.items.length > 0) return
@@ -157,6 +150,6 @@
           .finally(() => (this.isLoading = false))
       },
       */
-    },
   }
+};
 </script>
